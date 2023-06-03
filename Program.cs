@@ -10,62 +10,62 @@ namespace Experience
 {
     class Program
 {
-static void Main(string[] args)
-{
-#region 该类的 main
-DHT dht = new DHT(100);
-// 用随机分配的键初始化 100 个节点
-for (int i = 0; i < 100; i++)
-{
-Node node = dht.nodes[i];
-for (int j = 0; j < new Random().Next(0, 10); j++)
-{
-string key = $"key_{i}_{j}";
-node.AddKey(key);
-dht.GetKeys().Add(key);
-}
-}
-// 生成 200 个随机字符串并在随机节点中设置它们的值
-List<Tuple<string, string>> keyValuePairs = new List<Tuple<string, string>>();
-for (int i = 0; i < 200; i++)
-{
-string key = $"key_{i}_random";
-string value = "";
-int length = new Random().Next(5, 21);
-for (int j = 0; j < length; j++)
-{
-char c = (char)new Random().Next(97, 123);
-value += c;
-}
-keyValuePairs.Add(new Tuple<string, string>(key, value));
-if (i == 0)
-{
-dht.SetValue(key, value);
-}
-else
-{
-int nodeIndex = new Random().Next(0, 100);
-dht.SetValue(key, value);
-dht.nodes[nodeIndex].AddKey(key);
-}
-}
-// 选择 100 个随机键并检索它们的值
-HashSet<string> selectedKeys = new HashSet<string>();
-Random random = new Random();
-while (selectedKeys.Count < 100)
-{
-string key = keyValuePairs[random.Next(0, 200)].Item1;
-if (!selectedKeys.Contains(key))
-{
-selectedKeys.Add(key);
-}
-}
-foreach (string key in selectedKeys)
-{
-Console.WriteLine(dht.GetValue(key));
-}
-Console.ReadKey();
-}
+    static void Main(string[] args)
+    {
+        #region 该类的 main
+        DHT dht = new DHT(100);
+        // 用随机分配的键初始化 100 个节点
+        for (int i = 0; i < 100; i++)
+        {
+            Node node = dht.nodes[i];
+            for (int j = 0; j < new Random().Next(0, 10); j++)
+            {
+                string key = $"key_{i}_{j}";
+                node.AddKey(key);
+                dht.GetKeys().Add(key);
+            }
+        }
+        // 生成 200 个随机字符串并在随机节点中设置它们的值
+        List<Tuple<string, string>> keyValuePairs = new List<Tuple<string, string>>();
+        for (int i = 0; i < 200; i++)
+        {
+            string key = $"key_{i}_random";
+            string value = "";
+            int length = new Random().Next(5, 21);
+            for (int j = 0; j < length; j++)
+            {
+                char c = (char)new Random().Next(97, 123);
+                value += c;
+            }
+            keyValuePairs.Add(new Tuple<string, string>(key, value));
+            if (i == 0)
+            {
+                dht.SetValue(key, value);
+            }
+            else
+            {
+            int nodeIndex = new Random().Next(0, 100);
+            dht.SetValue(key, value);
+            dht.nodes[nodeIndex].AddKey(key);
+            }
+        }
+        // 选择 100 个随机键并检索它们的值
+        HashSet<string> selectedKeys = new HashSet<string>();
+        Random random = new Random();
+        while (selectedKeys.Count < 100)
+        {
+            string key = keyValuePairs[random.Next(0, 200)].Item1;
+            if (!selectedKeys.Contains(key))
+            {
+                selectedKeys.Add(key);
+            }
+        }
+        foreach (string key in selectedKeys)
+        {
+            Console.WriteLine(dht.GetValue(key));
+        }
+        Console.ReadKey();
+     }
 #endregion
 }
 
