@@ -41,13 +41,13 @@ namespace Experience
             int keyHash = key.GetHashCode();
             int nodeIndex = GetNodeIndex(keyHash);
             Node node = nodes[nodeIndex];
-            if (node.bucket.Contains(key))
+           if (node.bucket.Contains(key))
             {
-                return $"WSB -- Value: '{key}' in node NO.{node.id}.";
+                return $"Value for key '{key}' found at node {node.id}.";
             }
             else
             {
-                return $"WSB -- Value:'{key}' not found";
+                return $"Value for key '{key}' not found.";
             }
         }
 
